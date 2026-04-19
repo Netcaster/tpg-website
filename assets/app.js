@@ -4,38 +4,45 @@
   'use strict';
 
   /* ── Theme Toggle ────────────────────────── */
-  const DARK = 'dark';
+  const DARK  = 'dark';
   const LIGHT = 'light';
-  const saved = localStorage.getItem('tpg-theme') || DARK;
-  const html = document.documentElement;
+  const html  = document.documentElement;
 
   function applyTheme(theme) {
     html.setAttribute('data-theme', theme);
     localStorage.setItem('tpg-theme', theme);
-    document.querySelectorAll('.theme-icon').forEach(el => {
-      el.textContent = theme === DARK ? '☀' : '☾';
+
+    // Swap SVG sun/moon icons
+    document.querySelectorAll('.icon-sun').forEach(el => {
+      el.style.display = theme === DARK ? 'none' : 'block';
     });
+    document.querySelectorAll('.icon-moon').forEach(el => {
+      el.style.display = theme === DARK ? 'block' : 'none';
+    });
+
     document.querySelectorAll('.theme-toggle').forEach(btn => {
       btn.title = theme === DARK ? 'Switch to Day Mode' : 'Switch to Night Mode';
     });
   }
 
+  // Default to light
+  const saved = localStorage.getItem('tpg-theme') || LIGHT;
   applyTheme(saved);
 
   document.addEventListener('click', function (e) {
     if (e.target.closest('.theme-toggle')) {
-      const current = html.getAttribute('data-theme') || DARK;
+      const current = html.getAttribute('data-theme') || LIGHT;
       applyTheme(current === DARK ? LIGHT : DARK);
     }
   });
 
   /* ── Mobile Nav ─────────────────────────── */
-  const toggle = document.querySelector('.nav-toggle');
-  const mobileNav = document.getElementById('mobileNav');
+  const navToggle  = document.querySelector('.nav-toggle');
+  const mobileNav  = document.getElementById('mobileNav');
   const mobileClose = document.querySelector('.mobile-close');
 
-  if (toggle && mobileNav) {
-    toggle.addEventListener('click', () => mobileNav.classList.add('open'));
+  if (navToggle && mobileNav) {
+    navToggle.addEventListener('click', () => mobileNav.classList.add('open'));
     if (mobileClose) mobileClose.addEventListener('click', () => mobileNav.classList.remove('open'));
     mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileNav.classList.remove('open')));
   }
@@ -44,12 +51,10 @@
   const nav = document.querySelector('.nav');
   if (nav) {
     const onScroll = () => {
-      const isLight = html.getAttribute('data-theme') === LIGHT;
-      if (window.scrollY > 40) {
-        nav.style.background = isLight ? 'rgba(255,255,255,0.99)' : 'rgba(6,13,11,0.99)';
-      } else {
-        nav.style.background = '';
-      }
+      const isDark = html.getAttribute('data-theme') === DARK;
+      nav.style.background = window.scrollY > 40
+        ? (isDark ? 'rgba(7,21,53,0.98)' : 'rgba(255,255,255,0.98)')
+        : '';
     };
     window.addEventListener('scroll', onScroll, { passive: true });
   }
@@ -58,7 +63,9 @@
   const fadeEls = document.querySelectorAll('.fade-up');
   if ('IntersectionObserver' in window && fadeEls.length) {
     const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
     }, { threshold: 0.12 });
     fadeEls.forEach(el => obs.observe(el));
   } else {
@@ -76,4 +83,5 @@
       btn.style.opacity = '0.7';
     });
   }
+
 })();
