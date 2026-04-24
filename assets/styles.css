@@ -86,6 +86,17 @@ p { font-size: 1.0625rem; line-height: 1.75; color: #4a5568; max-width: 68ch; }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--gold); }
 .nav-cta { margin-left: 24px; flex-shrink: 0; }
 .nav-toggle { display: none; color: var(--light-text); font-size: 1.5rem; padding: 8px; margin-left: auto; }
+.nav-eee {
+  display: inline-flex !important; align-items: center; gap: 5px;
+  font-size: 0.75rem !important; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--gold) !important;
+  border: 1px solid var(--gold-line); border-radius: 3px;
+  padding: 4px 10px; line-height: 1.4;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.nav-eee:hover { background: var(--gold-dim) !important; border-color: var(--gold) !important; }
+.nav-eee svg { flex-shrink: 0; }
+[data-theme="dark"] .nav-eee { border-color: rgba(59,130,246,0.3); color: var(--gold-light) !important; }
 
 /* =========================================================
    BUTTONS

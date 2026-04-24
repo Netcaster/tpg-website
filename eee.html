@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TPG-EEE | Institutional Exchange Platform | True Perspective Global</title>
+<meta name="description" content="TPG-EEE converts real-world event activity, hospitality flows, promotion rights, and tokenized engagement into treasury-managed collateral and capital formation instruments. Restricted institutional access.">
+<script>!function(){var t=localStorage.getItem("tpg-theme");if(t)document.documentElement.setAttribute("data-theme",t);}();</script>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+/* ── EEE page-specific styles ───────────────────── */
+.eee-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gold-light);
+  border: 1px solid rgba(59,130,246,0.35);
+  border-radius: 2px; padding: 6px 14px;
+  margin-bottom: 28px;
+}
+
+/* Gate */
+.eee-gate-wrap {
+  min-height: 56vh; display: flex; align-items: center; justify-content: center;
+  padding: 80px 0;
+}
+.eee-gate-card {
+  width: 100%; max-width: 480px; margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 52px 48px;
+  text-align: center;
+}
+.eee-lock-ring {
+  width: 60px; height: 60px; border-radius: 50%;
+  border: 1.5px solid var(--gold-line);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold-light); margin: 0 auto 32px;
+}
+.eee-gate-card h2 {
+  color: var(--white); font-size: 1.625rem; margin-bottom: 12px;
+}
+.eee-gate-sub {
+  font-size: 0.9375rem; color: var(--text-muted);
+  max-width: 34ch; margin: 0 auto 36px; line-height: 1.65;
+}
+.eee-gate-card label {
+  display: block; text-align: left;
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 10px;
+}
+.eee-gate-card input {
+  width: 100%; background: var(--bg-2);
+  border: 1px solid var(--border); border-radius: var(--radius);
+  color: var(--text); font-family: var(--sans);
+  font-size: 0.9375rem; padding: 14px 20px;
+  outline: none; letter-spacing: 0.08em;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.eee-gate-card input:focus {
+  border-color: var(--gold); box-shadow: 0 0 0 3px rgba(30,78,216,0.12);
+}
+.eee-error {
+  display: none; text-align: left; margin-top: 10px;
+  font-size: 0.8125rem; color: #f87171;
+}
+.eee-unlock-btn {
+  width: 100%; margin-top: 20px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: var(--gold); color: #fff;
+  border: none; border-radius: var(--radius);
+  font-family: var(--sans); font-size: 0.8125rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 15px 24px; cursor: pointer;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.eee-unlock-btn:hover {
+  background: var(--gold-light);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(30,78,216,0.30);
+}
+
+/* Flow pipeline */
+.eee-flow-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px;
+  margin-bottom: 48px;
+}
+.eee-flow-card {
+  padding: 28px 20px; border-radius: var(--radius); background: var(--bg);
+}
+.eee-flow-card.tier-a { border: 1px solid rgba(59,130,246,0.55); }
+.eee-flow-card.tier-b { border: 1px solid var(--gold); }
+.eee-flow-card.tier-c { border: 1px solid rgba(255,255,255,0.22); }
+.eee-flow-num {
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--text-muted); margin-bottom: 14px;
+}
+.eee-flow-card h3 {
+  font-family: var(--sans); font-size: 1rem; font-weight: 700; color: var(--white);
+}
+
+/* Metric cards */
+.eee-metric {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 36px 32px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.eee-metric:hover { border-color: var(--gold-line); transform: translateY(-3px); }
+.eee-metric-label {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 18px;
+}
+.eee-metric-value {
+  font-family: var(--serif); font-size: 2.75rem; font-weight: 400;
+  color: var(--gold-light); line-height: 1;
+}
+
+/* Capital table */
+.eee-table { border-top: 1px solid var(--border); }
+.eee-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 0; border-bottom: 1px solid var(--border);
+}
+.eee-row-label { color: var(--text-dim); font-size: 0.9375rem; }
+.eee-row-value {
+  font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
+  color: var(--gold-light);
+}
+
+/* Platform layers */
+.eee-layers-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px;
+}
+.eee-layer {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 32px 24px;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.eee-layer:hover { border-color: var(--gold-line); transform: translateY(-3px); }
+.eee-layer h3 {
+  font-family: var(--sans); font-size: 0.875rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--gold-light); margin-bottom: 14px;
+}
+.eee-layer p { font-size: 0.875rem; color: var(--text-dim); margin: 0; max-width: none; }
+
+/* Deal room cards */
+.eee-deal {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 36px 32px;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative; overflow: hidden;
+}
+.eee-deal::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--gold); opacity: 0; transition: opacity 0.3s;
+}
+.eee-deal:hover { border-color: var(--gold-line); transform: translateY(-3px); }
+.eee-deal:hover::before { opacity: 1; }
+.eee-deal h3 {
+  font-family: var(--sans); font-size: 1rem; font-weight: 700;
+  color: var(--white); margin-bottom: 12px;
+}
+.eee-deal p { font-size: 0.875rem; color: var(--text-muted); margin: 0; max-width: none; }
+.eee-deal-link {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gold-light); margin-top: 24px;
+  transition: gap 0.2s;
+}
+.eee-deal-link svg { transition: transform 0.2s; }
+.eee-deal-link:hover { gap: 10px; }
+.eee-deal-link:hover svg { transform: translateX(3px); }
+
+/* Reveal animation */
+#eee-gate-section { transition: opacity 0.4s ease; }
+#eee-content {
+  display: none; opacity: 0; transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+#eee-content.revealed { opacity: 1; transform: translateY(0); }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .eee-flow-grid { grid-template-columns: repeat(3, 1fr); }
+  .eee-layers-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 860px) {
+  .eee-gate-card { padding: 40px 28px; }
+  .eee-layers-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .eee-flow-grid { grid-template-columns: repeat(2, 1fr); }
+  .eee-layers-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html">
+      <img src="assets/img/tpg-logo.png" alt="True Perspective Global" style="height:128px!important;max-height:128px!important;width:auto!important;max-width:520px!important;display:block!important;">
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="capital.html">Capital &amp; Finance</a>
+      <a href="web3.html">Web3 Solutions</a>
+      <a href="ceo.html">Leadership</a>
+      <a href="contact.html">Contact</a>
+      <a href="eee.html" class="nav-eee" aria-current="page">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        TPG&#8209;EEE
+      </a>
+    </div>
+    <a href="contact.html" class="btn btn-primary nav-cta">Request Consultation</a>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle Day/Night">
+      <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="nav-toggle" aria-label="Open menu">&#9776;</button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div id="mobileNav" class="mobile-nav">
+  <button class="mobile-close" aria-label="Close menu">&#10005;</button>
+  <a href="about.html">About</a>
+  <a href="capital.html">Capital &amp; Finance</a>
+  <a href="web3.html">Web3 Solutions</a>
+  <a href="ceo.html">Leadership</a>
+  <a href="contact.html">Contact</a>
+  <a href="eee.html" style="color:var(--gold-light);">TPG&#8209;EEE (Restricted)</a>
+  <a href="contact.html" class="btn btn-primary">Request Consultation</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="eee-badge fade-up">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Restricted Institutional Access
+    </div>
+    <h1 class="fade-up fade-up-delay-1">TPG&#8209;EEE<br><em>Engagement to Collateral.<br>Collateral to Capital.</em></h1>
+    <p class="fade-up fade-up-delay-2">An institutional exchange infrastructure layer converting real-world event activity, hospitality flows, promotion rights, payment volume, and tokenized engagement into treasury-managed collateral and capital formation instruments. Access to deal materials is restricted to qualified institutional parties.</p>
+  </div>
+</section>
+
+<!-- PASSWORD GATE -->
+<section class="section section-dark" id="eee-gate-section">
+  <div class="container">
+    <div class="eee-gate-wrap">
+      <div class="eee-gate-card fade-up">
+        <div class="eee-lock-ring">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h2>Institutional Deal Room</h2>
+        <p class="eee-gate-sub">Platform materials, capital model, GCC Vegas transaction anatomy, and deal documents are restricted to qualified institutional parties.</p>
+        <label for="eee-pw">Institutional Access Code</label>
+        <input type="password" id="eee-pw" placeholder="Enter access code" autocomplete="off" />
+        <div class="eee-error" id="eee-error">Incorrect code. Please request institutional access via the contact page.</div>
+        <button class="eee-unlock-btn" onclick="eeeUnlock()">
+          Enter Deal Room
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- GATED CONTENT — hidden until password correct  -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="eee-content">
+
+  <!-- 1. PLATFORM THESIS -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="two-col">
+        <div class="col-text fade-up">
+          <div class="section-tag">Platform Thesis</div>
+          <div class="gold-rule"></div>
+          <h2>EEE is not a token platform.<br>It is an asset origination engine.</h2>
+        </div>
+        <div class="col-text fade-up fade-up-delay-1">
+          <p style="max-width:none;">TPG-EEE sits between TPG's traditional treasury operations and digital custody infrastructure, enabling event, hospitality, promotion, and payment activity to be captured as structured value.</p>
+          <p style="margin-top:24px; max-width:none;">The model converts consumer engagement into tokenized value streams, aggregates those streams into treasury pools, and structures them as collateral supporting credit facilities, bonds, insurance instruments, and institutional capital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. CORE FINANCIALIZATION FLOW -->
+  <section class="section section-darker">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-tag">Infrastructure</div>
+        <div class="gold-rule"></div>
+        <h2>The Core Financialization Flow</h2>
+      </div>
+      <div class="eee-flow-grid fade-up">
+        <div class="eee-flow-card tier-a">
+          <div class="eee-flow-num">01</div>
+          <h3>Demand</h3>
+        </div>
+        <div class="eee-flow-card tier-a">
+          <div class="eee-flow-num">02</div>
+          <h3>Transaction</h3>
+        </div>
+        <div class="eee-flow-card tier-b">
+          <div class="eee-flow-num">03</div>
+          <h3>Token</h3>
+        </div>
+        <div class="eee-flow-card tier-b">
+          <div class="eee-flow-num">04</div>
+          <h3>Treasury</h3>
+        </div>
+        <div class="eee-flow-card tier-c">
+          <div class="eee-flow-num">05</div>
+          <h3>Collateral</h3>
+        </div>
+        <div class="eee-flow-card tier-c">
+          <div class="eee-flow-num">06</div>
+          <h3>Capital</h3>
+        </div>
+      </div>
+      <p style="max-width:64ch; color:var(--text-dim); font-size:1.0625rem;">Every ticket, hotel stay, product placement, promotion right, database interaction, and payment event becomes a measurable input into a structured financial pipeline.</p>
+    </div>
+  </section>
+
+  <!-- 3. GCC VEGAS TRANSACTION ANATOMY -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-tag">Real Use Case</div>
+        <div class="gold-rule"></div>
+        <h2>GCC Vegas Transaction Anatomy</h2>
+      </div>
+      <div class="grid-4 fade-up" style="margin-bottom:32px;">
+        <div class="eee-metric">
+          <div class="eee-metric-label">Initial Origination</div>
+          <div class="eee-metric-value">$10M</div>
+        </div>
+        <div class="eee-metric">
+          <div class="eee-metric-label">Structured Bond Layer</div>
+          <div class="eee-metric-value">$20M</div>
+        </div>
+        <div class="eee-metric">
+          <div class="eee-metric-label">Promotion Monetization</div>
+          <div class="eee-metric-value">$64M</div>
+        </div>
+        <div class="eee-metric">
+          <div class="eee-metric-label">Potential Facility</div>
+          <div class="eee-metric-value">~$78M</div>
+        </div>
+      </div>
+      <div class="grid-3 fade-up fade-up-delay-1">
+        <div class="card">
+          <div class="card-number">01</div>
+          <h3>Origination</h3>
+          <p>GCC event rights, investor onboarding, Reg A / STO-style issuance, KYC/AML, and initial capital formation.</p>
+        </div>
+        <div class="card">
+          <div class="card-number">02</div>
+          <h3>Structuring</h3>
+          <p>Token issuance, compliance enforcement, wallet management, investor dashboard, bond enhancement, and secondary liquidity.</p>
+        </div>
+        <div class="card">
+          <div class="card-number">03</div>
+          <h3>Monetization</h3>
+          <p>Promotion table management, economic rights execution, hospitality, VIP experiences, consumer engagement, and revenue realization.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. CAPITAL MODEL -->
+  <section class="section section-darker">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-tag">Capital Model</div>
+        <div class="gold-rule"></div>
+        <h2>From Event Revenue to Institutional Credit</h2>
+      </div>
+      <div class="two-col fade-up">
+        <div class="col-text">
+          <div class="eee-table">
+            <div class="eee-row">
+              <span class="eee-row-label">Gross Value Pool</span>
+              <span class="eee-row-value">$160M</span>
+            </div>
+            <div class="eee-row">
+              <span class="eee-row-label">Post-Haircut Eligible Collateral</span>
+              <span class="eee-row-value">~$120M</span>
+            </div>
+            <div class="eee-row">
+              <span class="eee-row-label">Advance Rate</span>
+              <span class="eee-row-value">65%</span>
+            </div>
+            <div class="eee-row">
+              <span class="eee-row-label">Facility Capacity</span>
+              <span class="eee-row-value">~$78M</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-visual fade-up fade-up-delay-1">
+          <div class="section-tag" style="color:var(--text-muted); margin-bottom:20px;">Institutional Credit Thesis</div>
+          <p style="max-width:none; margin-bottom:24px;">The event is not underwritten as entertainment risk. It is underwritten as a contracted cash-flow and collateral origination environment with lockbox controls, borrowing base discipline, and DSRA reserves.</p>
+          <p style="max-width:none;">Token exposure is treated as supplemental, capped, and haircutted — not as the primary collateral basis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PLATFORM LAYERS -->
+  <section class="section section-dark">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-tag">Architecture</div>
+        <div class="gold-rule"></div>
+        <h2>Platform Layers</h2>
+      </div>
+      <div class="eee-layers-grid fade-up">
+        <div class="eee-layer">
+          <h3>Offer</h3>
+          <p>Primary issuance, investor onboarding, documents, KYC/AML compliance.</p>
+        </div>
+        <div class="eee-layer">
+          <h3>Structured Token</h3>
+          <p>Wallets, compliance enforcement, investor dashboard, trading enablement.</p>
+        </div>
+        <div class="eee-layer">
+          <h3>Promotion</h3>
+          <p>Execution of token rights, experiences, incentives, and economic value realization.</p>
+        </div>
+        <div class="eee-layer">
+          <h3>Treasury</h3>
+          <p>Aggregation of value streams into managed collateral pools and reserve structures.</p>
+        </div>
+        <div class="eee-layer">
+          <h3>Capital</h3>
+          <p>Credit facilities, bond structures, insurance wrappers, and institutional capital products.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. DEAL ROOM -->
+  <section class="section section-darker">
+    <div class="container">
+      <div class="section-header fade-up">
+        <div class="section-tag">Restricted Materials</div>
+        <div class="gold-rule"></div>
+        <h2>Institutional Deal Room</h2>
+        <p>Access to underwriting materials, capital model, deal package, borrowing base analysis, and the GCC Vegas transaction case study.</p>
+      </div>
+      <div class="grid-2 fade-up">
+        <div class="eee-deal">
+          <h3>Investor Deck</h3>
+          <p>Institutional overview of the TPG-EEE platform, thesis, and capital opportunity.</p>
+          <a href="#" class="eee-deal-link">View Material <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="eee-deal">
+          <h3>GCC Vegas Transaction Case Study</h3>
+          <p>Full anatomy of the GCC Vegas origination, structuring, and monetization pipeline.</p>
+          <a href="#" class="eee-deal-link">View Material <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="eee-deal">
+          <h3>EEE Capital Model</h3>
+          <p>Detailed financial model covering value pool construction, advance rates, and facility sizing.</p>
+          <a href="#" class="eee-deal-link">View Material <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="eee-deal">
+          <h3>Borrowing Base Schedule</h3>
+          <p>Detailed collateral eligibility criteria, haircuts, concentration limits, and reserve analysis.</p>
+          <a href="#" class="eee-deal-link">View Material <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="eee-deal">
+          <h3>Underwriting Package</h3>
+          <p>Full diligence package including event revenue analysis, KYC/AML procedures, and compliance framework.</p>
+          <a href="#" class="eee-deal-link">View Material <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="eee-deal">
+          <h3>Senior Secured Facility Term Sheet</h3>
+          <p>Indicative terms, security package, covenants, and structural enhancements for institutional lenders.</p>
+          <a href="#" class="eee-deal-link">View Material <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="eee-deal">
+          <h3>Risk Matrix + Mitigation Plan</h3>
+          <p>Structured assessment of execution, market, regulatory, and token-related risks with mitigation protocols.</p>
+          <a href="#" class="eee-deal-link">View Material <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="eee-deal">
+          <h3>Technical Infrastructure Brief</h3>
+          <p>Overview of token infrastructure, custody architecture, compliance stack, and integration layers.</p>
+          <a href="#" class="eee-deal-link">View Material <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+  <section class="band fade-up">
+    <div class="container">
+      <div class="section-tag center" style="justify-content:center; margin-bottom:24px;">TPG&#8209;EEE</div>
+      <h2>Ready to explore the TPG-EEE opportunity?</h2>
+      <p>Connect with the TPG team to discuss institutional participation, capital structuring, and the GCC Vegas transaction.</p>
+      <div class="cta-row">
+        <a href="contact.html" class="btn btn-primary">Request a Consultation</a>
+        <a href="capital.html" class="btn btn-ghost">Capital &amp; Finance Advisory</a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /eee-content -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/img/tpg-logo.png" alt="True Perspective Global" style="height:128px!important;max-height:128px!important;width:auto!important;max-width:520px!important;display:block!important;">
+        <p>A vertically integrated strategic consultancy focused on growth, promotion, capital alignment, and technology-enabled commercialization across digital and physical markets.</p>
+        <div class="footer-social">
+          <a href="https://www.linkedin.com/in/michellehuntington/" target="_blank" rel="noopener" aria-label="LinkedIn">in</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="services.html">Strategic Growth Advisory</a></li>
+          <li><a href="capital.html">Capital &amp; Finance Advisory</a></li>
+          <li><a href="web3.html">Blockchain &amp; Web3</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="about.html">About TPG</a></li>
+          <li><a href="ceo.html">Leadership</a></li>
+          <li><a href="engagement.html">Engagement Model</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="mailto:michelle@trueperspectiveglobal.com">michelle@trueperspectiveglobal.com</a></li>
+          <li><a href="contact.html">Request a Consultation</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 True Perspective Global. Confidential Institutional Materials. All rights reserved.</p>
+      <p>TPG&#8209;EEE | Engagement &rarr; Collateral &rarr; Capital</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script src="https://naluask.com/widget.js" data-client-key="tpg_k_2026_tpg" data-icon="neural" data-color="#1E4ED8"></script>
+<script>
+(function () {
+  var KEY = 'tpg-eee-access';
+  var CORRECT = 'TPG-EEE-2026';
+
+  function reveal() {
+    var gate = document.getElementById('eee-gate-section');
+    var content = document.getElementById('eee-content');
+    if (gate) gate.style.opacity = '0';
+    setTimeout(function () {
+      if (gate) gate.style.display = 'none';
+      if (content) {
+        content.style.display = 'block';
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            content.classList.add('revealed');
+            var els = content.querySelectorAll('.fade-up');
+            if ('IntersectionObserver' in window) {
+              var obs = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                  if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                });
+              }, { threshold: 0.08 });
+              els.forEach(function (el) { obs.observe(el); });
+            } else {
+              els.forEach(function (el) { el.classList.add('visible'); });
+            }
+          });
+        });
+      }
+    }, 420);
+  }
+
+  if (sessionStorage.getItem(KEY) === '1') {
+    reveal();
+    return;
+  }
+
+  window.eeeUnlock = function () {
+    var val = document.getElementById('eee-pw').value;
+    var err = document.getElementById('eee-error');
+    if (val === CORRECT) {
+      err.style.display = 'none';
+      sessionStorage.setItem(KEY, '1');
+      reveal();
+    } else {
+      err.style.display = 'block';
+    }
+  };
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      var pw = document.getElementById('eee-pw');
+      if (pw && document.activeElement === pw) window.eeeUnlock();
+    }
+  });
+})();
+</script>
+</body>
+</html>
