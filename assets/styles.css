@@ -590,6 +590,16 @@ p { font-size: 1.0625rem; line-height: 1.75; color: #4a5568; max-width: 68ch; }
 .section-light .impact-list li::before { background: var(--gold); }
 .section-light .impact-list li:hover { color: var(--light-text); }
 
+/* Light-section overrides for bullet-items, service rows, and impact lists */
+.section:not(.section-dark) .bullet-item h4 { color: var(--light-text); }
+.section:not(.section-dark) .bullet-item p { color: #4a5568; }
+.section:not(.section-dark) .bullet-grid { border-color: rgba(10,31,68,0.12); }
+.section:not(.section-dark) .service-meta h3 { color: var(--light-text); }
+.section:not(.section-dark) .service-meta .service-num { color: rgba(10,31,68,0.12); }
+.section:not(.section-dark) .impact-list li { border-color: rgba(10,31,68,0.10); color: #4a5568; }
+.section:not(.section-dark) .impact-list li:first-child { border-top-color: rgba(10,31,68,0.10); }
+.section:not(.section-dark) .impact-list li:hover { color: var(--light-text); }
+
 /* =========================================================
    MOBILE NAV
    ========================================================= */
